@@ -51,7 +51,12 @@ Number.isInteger = Number.isInteger || function(value) {
 };
 
 // Detect Node.js
+/**
+ *  NOTE(mperrotte): this check returns `{}` so NODEJS is an empty object
+ * 	which means that a boolean check of it (eg. `if (NODEJS)`) will return true!
+ */
 var NODEJS = ( typeof module !== 'undefined' && module.exports );
+NODEJS = false; // INFO: hardcode to false; we want browser
 
 // [Node.js] <script> includes
 if ( NODEJS ) {
