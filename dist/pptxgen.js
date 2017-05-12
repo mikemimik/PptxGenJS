@@ -1757,7 +1757,7 @@ var PptxGenJS = function(){
 		strXml += '<TitlesOfParts>';
 		strXml += '<vt:vector size="'+ (gObjPptx.slides.length+1) +'" baseType="lpstr">';
 		strXml += '<vt:lpstr>Office Theme</vt:lpstr>';
-		$.each(gObjPptx.slides, function(idx,slideObj){ strXml += '<vt:lpstr>Slide '+ (idx+1) +'</vt:lpstr>'; });
+		gObjPptx.slides.forEach(function(slide, idx) { strXml += '<vt:lpstr>Slide '+ (idx+1) +'</vt:lpstr>'; });
 		strXml += '</vt:vector>';
 		strXml += '</TitlesOfParts>';
 		strXml += '<Company>'+gObjPptx.company+'</Company>';
@@ -1864,7 +1864,7 @@ var PptxGenJS = function(){
 		strSlideXml += '<a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>';
 
 		// STEP 4: Loop over all Slide.data objects and add them to this slide ===============================
-		$.each(inSlide.data, function(idx,slideObj){
+		inSlide.data.forEach(function(slideObj, idx) {
 			var x = 0, y = 0, cx = (EMU*10), cy = 0;
 			var locationAttr = '', shapeType = null;
 
@@ -1957,12 +1957,12 @@ var PptxGenJS = function(){
 						|      |      |  C2  |  D2  |
 						\------|------|------|------/
 					*/
- 					$.each(arrTabRows, function(rIdx,row){
+					arrTabRows.forEach(function(row, rIdx){
 						// A: Create row if needed (recall one may be created in loop below for rowspans, so dont assume we need to create one each iteration)
 						if ( !objTableGrid[rIdx] ) objTableGrid[rIdx] = {};
 
 						// B: Loop over all cells
-						$(row).each(function(cIdx,cell){
+						row.forEach(function(cell, cIdx){
 							// DESIGN: NOTE: Row cell arrays can be "uneven" (diff cell count in each) due to rowspan/colspan
 							// Therefore, for each cell we run 0->colCount to determien the correct slot for it to reside
 							// as the uneven/mixed nature of the data means we cannot use the cIdx value alone.
@@ -2889,7 +2889,7 @@ var PptxGenJS = function(){
 
 			// STEP 4: Add this image to this Slide Rels (rId/rels count spans all slides! Count all images to get next rId)
 			// NOTE: rId starts at 2 (hence the intRels+1 below) as slideLayout.xml is rId=1!
-			$.each(gObjPptx.slides, function(i,slide){ intRels += slide.rels.length; });
+			gObjPptx.slides.forEach(function(slide, i) { intRels += slide.rels.length; });
 			slideObjRels.push({
 				path: (strImagePath || 'preencoded'+strImgExtn),
 				type: 'image/'+strImgExtn,
@@ -2975,7 +2975,7 @@ var PptxGenJS = function(){
 
 			// STEP 4: Add this image to this Slide Rels (rId/rels count spans all slides! Count all media to get next rId)
 			// NOTE: rId starts at 2 (hence the intRels+1 below) as slideLayout.xml is rId=1!
-			$.each(gObjPptx.slides, function(i,slide){ intRels += slide.rels.length; });
+			gObjPptx.slides.forEach(function(slide, i) { intRels += slide.rels.length; });
 
 			if ( strType == 'online' ) {
 				slideObjRels.push({
