@@ -2589,7 +2589,7 @@ var PptxGenJS = function(){
 
 			gObjPptx.pptLayout = LAYOUTS['LAYOUT_USER'];
 		}
-		else if ( $.inArray(inLayout, Object.keys(LAYOUTS)) > -1 ) {
+		else if (Object.keys(LAYOUTS).indexOf(inLayout) > -1 )
 			gObjPptx.pptLayout = LAYOUTS[inLayout];
 		}
 		else {
