@@ -3510,4 +3510,8 @@ if ( NODEJS ) {
 
 	// B: Export module
 	module.exports = new PptxGenJS();
+} else {
+	var $ = require('jquery');
+	var JSZip = require('jszip');
+	module.exports = PptxGenJS;
 }
